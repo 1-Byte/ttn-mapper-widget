@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="widgetText">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+</resources>
