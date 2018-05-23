@@ -1,8 +1,10 @@
 <resources>
 
-    <style name="widgetText">
+    <style name="WidgetTheme" parent="Theme.AppCompat">
+        <item name="android:background">@color/ttn_blue</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
     </style>
 
 </resources>

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 
 import kotlin.io.FilesKt;
 import kotlin.text.Charsets;
@@ -47,7 +48,7 @@ public class Gateways {
 
     public Gateway get(String id) {
         try {
-            String euiId = "eui-" + id.toLowerCase();
+            String euiId = "eui-" + id.toLowerCase(Locale.ROOT);
             return new Gateway(data.getJSONObject(data.has(euiId) ? euiId : id));
         } catch (JSONException e) {
             return null;

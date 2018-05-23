@@ -2,10 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ttnBlue"
+    android:theme="@style/WidgetTheme"
     android:orientation="horizontal"
     android:id="@+id/layout">
-
 
     <LinearLayout
         android:layout_width="56dp"
@@ -14,7 +13,6 @@
 
         <TextView
             android:id="@+id/device"
-            style="@style/widgetText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
@@ -24,7 +22,6 @@
 
         <TextView
             android:id="@+id/count"
-            style="@style/widgetText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -40,39 +37,30 @@
 
         <TextView
             android:id="@+id/status"
-            style="@style/widgetText"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            tools:text="2018-01-10 14:30:23"
-            android:ellipsize="marquee" />
+            tools:text="2018-01-10 14:30:23" />
 
         <TextView
             android:id="@+id/position"
-            style="@style/widgetText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Position"
-            android:ellipsize="marquee" />
+            tools:text="Position" />
 
         <TextView
             android:id="@+id/gateways"
-            style="@style/widgetText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Gateways"
-            android:ellipsize="marquee" />
+            tools:text="Gateways" />
 
         <TextView
             android:id="@+id/signal"
-            style="@style/widgetText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Signal"
             android:maxLines="2"
-            android:singleLine="false"
-            android:ellipsize="marquee" />
+            android:singleLine="false" />
 
     </LinearLayout>
-
 
 </LinearLayout>

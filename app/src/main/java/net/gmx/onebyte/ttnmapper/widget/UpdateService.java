@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -68,7 +69,7 @@ public class UpdateService extends IntentService {
             view.setCharSequence(R.id.status, "setText", last != null ? last.getTime() : "");
             view.setCharSequence(R.id.position, "setText", last != null ? formatLocation(last.getLocation()) : "");
             view.setCharSequence(R.id.gateways, "setText", last != null ? formatGateway(last.getGateway(), last.getLocation()) : "");
-            view.setCharSequence(R.id.signal, "setText", last != null ? String.format("SNR:\u00A0%.1f, RSSI:\u00A0%.1f, HDOP:\u00A0%.1f, Satellites:\u00A0%d", last.getSnr(), last.getRssi(), last.getHdop(), last.getSatellites()) : "");
+            view.setCharSequence(R.id.signal, "setText", last != null ? formatSignal(last) : "");
             AppWidgetManager.getInstance(this).updateAppWidget(widget, view);
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,7 +79,7 @@ public class UpdateService extends IntentService {
     private Request buildRequest(String node, Date date) {
         HttpUrl url = HttpUrl.parse(ENDPOINT).newBuilder()
                 .setQueryParameter("node", node)
-                .setQueryParameter("date", new SimpleDateFormat("yyyy-MM-dd").format(date))
+                .setQueryParameter("date", new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(date))
                 .build();
         return new Request.Builder().url(url).build();
     }
@@ -94,5 +95,9 @@ public class UpdateService extends IntentService {
             result += String.format(" (%.0fm)", nodeLocation.distanceTo(gateway.getLocation()));
         }
         return result;
+    }
+
+    private String formatSignal(net.gmx.onebyte.ttnmapper.Log log) {
+        return String.format("SNR:\u00A0%.1f, RSSI:\u00A0%.1f, HDOP:\u00A0%.1f, Satellites:\u00A0%d", log.getSnr(), log.getRssi(), log.getHdop(), log.getSatellites());
     }
 }
