@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -33,7 +34,7 @@ public class UpdateService extends IntentService {
 
     public UpdateService() {
         super(TAG);
-        mClient = new OkHttpClient();
+        mClient = new OkHttpClient.Builder().addInterceptor(new UserAgentInterceptor()).build();
     }
 
     public static Intent getUpdateIntent(Context context, int widget, String device) {
@@ -99,5 +100,14 @@ public class UpdateService extends IntentService {
 
     private String formatSignal(net.gmx.onebyte.ttnmapper.Log log) {
         return String.format("SNR:\u00A0%.1f, RSSI:\u00A0%.1f, HDOP:\u00A0%.1f, Satellites:\u00A0%d", log.getSnr(), log.getRssi(), log.getHdop(), log.getSatellites());
+    }
+
+    private static class UserAgentInterceptor implements Interceptor {
+        private static final String USER_AGENT = "ttn-mapper-widget/" + BuildConfig.VERSION_NAME;
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            return chain.proceed(chain.request().newBuilder().header("User-Agent", USER_AGENT).build());
+        }
     }
 }
